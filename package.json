@@ -7,7 +7,8 @@
     "lint": "./node_modules/.bin/eslint --max-warnings 0 subscription.js",
     "lint:fix": "./node_modules/.bin/eslint --fix subscription.js",
     "test": "npm run lint && ./node_modules/.bin/jest --coverage",
-    "test:watch": "./node_modules/.bin/jest --watch --coverage"
+    "test:watch": "./node_modules/.bin/jest --watch --coverage",
+    "coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "babel-jest": "^20.0.3",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
+    "coveralls": "^2.13.1",
     "enzyme": "^2.9.1",
     "eslint": ">=4.0.0",
     "eslint-config-ship-components": "^1.4.2",
