@@ -1,0 +1,12 @@
+{
+  "extends" : "ship-components",
+
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+
+  "globals" : {
+    "process" : true
+  }
+}
