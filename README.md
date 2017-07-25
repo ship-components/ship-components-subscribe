@@ -69,6 +69,7 @@ export function ExampleView(props) {
 2. `npm test`
 
 ## History
+* 0.1.1 - Moved to src folder like other ship-components
 * 0.1.0 - Initial
 
 ## License
