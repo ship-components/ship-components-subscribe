@@ -1,11 +1,11 @@
 {
   "name": "ship-components-subscribe",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Higher order React component to subscribe to a store",
-  "main": "subscription.js",
+  "main": "src/subscription.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint --max-warnings 0 subscription.js",
-    "lint:fix": "./node_modules/.bin/eslint --fix subscription.js",
+    "lint": "./node_modules/.bin/eslint --max-warnings 0 src/subscription.js",
+    "lint:fix": "./node_modules/.bin/eslint --fix src/subscription.js",
     "test": "npm run lint && ./node_modules/.bin/jest --coverage",
     "test:watch": "./node_modules/.bin/jest --watch --coverage",
     "coverage": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
