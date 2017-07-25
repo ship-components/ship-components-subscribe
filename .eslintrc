@@ -3,8 +3,10 @@
 
   "env": {
     "browser": true,
-    "jest": true,
-    "node": false
-  }
+    "jest": true
+  },
 
+  "globals" : {
+    "process" : true
+  }
 }

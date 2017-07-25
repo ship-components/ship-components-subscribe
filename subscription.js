@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import invariant from 'invariant';
+import bluebird from 'bluebird';
 import ms from 'ms';
 
 /**
@@ -13,9 +14,11 @@ import ms from 'ms';
 export default function subscription(options = {}) {
   // Defaults
   options = Object.assign({
-    dataKey: 'data'
+    dataKey: 'data',
+    interval: ms('1m')
   }, options);
 
+  // User options
   const {
     WrappedComponent,
     Store,
@@ -52,10 +55,14 @@ export default function subscription(options = {}) {
      */
     constructor(props) {
       super(props);
+
+      // Bindings
       this.handleChange = this.handleChange.bind(this);
       this.handleActionError = this.handleActionError.bind(this);
       this.handleActionSuccess = this.handleActionSuccess.bind(this);
       this.update = this.update.bind(this);
+
+      // Initial state
       this.state = {
         errorStatus: -1,
         [dataKey]: selectData(Store, props)
@@ -78,6 +85,7 @@ export default function subscription(options = {}) {
      */
     shouldComponentUpdate(nextProps, nextState) {
       if (typeof userShouldComponentUpdate === 'function') {
+        console.log('wtf');
         return userShouldComponentUpdate.call(this, nextProps, nextState);
       }
       return true;
@@ -95,11 +103,17 @@ export default function subscription(options = {}) {
      * Call the action
      */
     update() {
-      return callAction(this.props)
-        .then(this.handleActionSuccess)
+      const promise = callAction(this.props);
+      invariant(
+        promise instanceof bluebird,
+        'callAction must return a bluebird promise'
+      );
+      return promise.then(this.handleActionSuccess)
         .catch(this.handleActionError)
         .finally(() => {
-          this.actionId = setTimeout(this.update, interval || ms('1m'));
+          // User setTimeout to ensure we never run at the same time as another
+          // request if the request is long and the interval short
+          this.actionId = setTimeout(this.update, interval);
         });
     }
 
@@ -107,7 +121,10 @@ export default function subscription(options = {}) {
      * Handle any errors
      */
     handleActionError(err) {
-      console.error(err);
+      /* istanbul ignore next */
+      if (process.env.NODE_ENV !== 'test') {
+        console.error(err);
+      }
       this.setState({
         errorStatus: err.status || 500
       });
