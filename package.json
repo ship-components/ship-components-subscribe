@@ -1,0 +1,38 @@
+{
+  "name": "ship-components-subscribe",
+  "version": "0.1.0",
+  "description": "Higher order React component to subscribe to a store",
+  "main": "subscription.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint subscription.js",
+    "lint:fix": "./node_modules/.bin/eslint --fix subscription.js",
+    "test": "./node_modules/.bin/jest --coverage",
+    "test:watch": "./node_modules/.bin/jest --watch --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ship-components/ship-components-subscribe.git"
+  },
+  "author": "Isaac Suttell <isaac.suttell@sony.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ship-components/ship-components-subscribe/issues"
+  },
+  "homepage": "https://github.com/ship-components/ship-components-subscribe#readme",
+  "dependencies": {
+    "invariant": ">=2.0.0",
+    "ms": ">=2.0.0",
+    "react": ">=15.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint": ">=4.0.0",
+    "eslint-config-ship-components": "^1.4.2",
+    "eslint-plugin-react": "^7.1.0",
+    "jest": "^20.0.4",
+    "regenerator-runtime": "^0.10.5"
+  }
+}

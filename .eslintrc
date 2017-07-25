@@ -1,0 +1,10 @@
+{
+  "extends" : "ship-components",
+
+  "env": {
+    "browser": true,
+    "jest": true,
+    "node": false
+  }
+
+}
