@@ -64,6 +64,7 @@ export default function subscription(options = {}) {
 
       // Initial state
       this.state = {
+        loading: false,
         errorStatus: -1,
         [dataKey]: selectData(Store, props)
       };
@@ -85,7 +86,6 @@ export default function subscription(options = {}) {
      */
     shouldComponentUpdate(nextProps, nextState) {
       if (typeof userShouldComponentUpdate === 'function') {
-        console.log('wtf');
         return userShouldComponentUpdate.call(this, nextProps, nextState);
       }
       return true;
@@ -103,17 +103,24 @@ export default function subscription(options = {}) {
      * Call the action
      */
     update() {
-      const promise = callAction(this.props);
+      const promise = callAction.call(this, this.props);
       invariant(
         promise instanceof bluebird,
         'callAction must return a bluebird promise'
       );
+      // Track our loading state so the child view can update accordingly
+      this.setState({
+        loading: true
+      });
       return promise.then(this.handleActionSuccess)
         .catch(this.handleActionError)
         .finally(() => {
           // User setTimeout to ensure we never run at the same time as another
           // request if the request is long and the interval short
           this.actionId = setTimeout(this.update, interval);
+          this.setState({
+            loading: false
+          });
         });
     }
 
@@ -144,7 +151,7 @@ export default function subscription(options = {}) {
      */
     handleChange() {
       this.setState({
-        [dataKey]: selectData(Store, this.props)
+        [dataKey]: selectData.call(this, Store, this.props)
       });
     }
 
